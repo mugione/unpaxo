@@ -5,15 +5,15 @@
 <h1 align="center">Unpaxo</h1>
 
 <p align="center">
-  <b>macOS için sade, açık kaynak arşiv açıcı ve sıkıştırıcı.</b><br>
+  <b>macOS için sade arşiv açıcı ve sıkıştırıcı.</b><br>
   Extract files. Simply.
 </p>
 
 <p align="center">
   <img src="https://img.shields.io/badge/macOS-14%2B-000000?logo=apple&logoColor=white" alt="macOS 14 ve üzeri">
   <img src="https://img.shields.io/badge/Apple_silicon_%2B_Intel-universal-5b5bf7" alt="Apple silicon ve Intel">
-  <img src="https://img.shields.io/badge/Swift-6-F05138?logo=swift&logoColor=white" alt="Swift 6">
-  <a href="LICENSE"><img src="https://img.shields.io/badge/lisans-MIT-2ea44f" alt="MIT lisansı"></a>
+  <img src="https://img.shields.io/badge/fiyat-%C3%BCcretsiz-2ea44f" alt="Ücretsiz">
+  <img src="https://img.shields.io/badge/dil-T%C3%BCrk%C3%A7e_%2B_English-0D96F6" alt="Türkçe ve İngilizce">
 </p>
 
 <p align="center">
@@ -25,13 +25,11 @@
   &nbsp;·&nbsp;
   <a href="#güvenlik-ve-gizlilik">Güvenlik ve gizlilik</a>
   &nbsp;·&nbsp;
-  <a href="#kaynaktan-derleme">Derleme</a>
-  &nbsp;·&nbsp;
   <a href="#english">English</a>
 </p>
 
 <p align="center">
-  <img src="docs/appstore/screenshots/2-archive.png" width="820" alt="Unpaxo'da açık bir arşivin içeriği">
+  <img src="docs/screenshots/2-archive.png" width="820" alt="Unpaxo'da açık bir arşivin içeriği">
 </p>
 
 ## Neden Unpaxo?
@@ -41,12 +39,11 @@
 - **Derli toplu.** Tek dosya ya da klasör olduğu gibi çıkar; birden çok öğe arşivin adını taşıyan tek klasörde toplanır.
 - **Sıkıştırır da.** ZIP (isteğe bağlı AES-256 şifreyle), 7Z ve TAR arşivleri oluşturur.
 - **Gizli.** App Sandbox içinde çalışır, internete bağlanamaz; hesap, reklam ve izleme yoktur.
-- **Ücretsiz ve açık kaynak.**
+- **Ücretsiz.** Uygulama içi satın alma yok.
 
 ## Kurulum
 
 Unpaxo, Mac App Store'da yayımlanmak üzere hazırlanıyor; bağlantı yayımlanınca buraya eklenecek.
-O zamana kadar [kaynaktan derleyebilirsin](#kaynaktan-derleme).
 
 Gereken: macOS 14 (Sonoma) ya da sonrası. Apple silicon ve Intel Mac'lerde çalışır.
 
@@ -84,57 +81,35 @@ Dosyalar arşivin bulunduğu klasöre çıkar. Birden çok arşivi birlikte bır
 **Ayarlar** (Command-virgül): dil (Sistem, Türkçe, English), her seferinde klasör sorma, Finder'dan açılan arşivi hemen çıkarma, iş bitince sonucu Finder'da gösterme.
 
 <p align="center">
-  <img src="docs/appstore/screenshots/1-home.png" width="410" alt="Ana ekran">
-  <img src="docs/appstore/screenshots/5-compress.png" width="410" alt="Yeni arşiv ekranı">
+  <img src="docs/screenshots/1-home.png" width="410" alt="Ana ekran">
+  <img src="docs/screenshots/5-compress.png" width="410" alt="Yeni arşiv ekranı">
 </p>
 
 ## Güvenlik ve gizlilik
 
-- **App Sandbox:** İzinler [`Support/Unpaxo.entitlements`](Support/Unpaxo.entitlements) dosyasında. **Ağ izni yoktur**; macOS, Unpaxo'nun internete bağlanmasını engeller.
+- **App Sandbox:** Unpaxo macOS'un sandbox'ında çalışır. **Ağ izni yoktur**; macOS, Unpaxo'nun internete bağlanmasını engeller.
 - **Dosya erişimi:** Yalnızca açtığın, sürüklediğin ya da seçtiğin dosyalar ve İndirilenler klasörü. Başka bir klasöre ilk çıkarmada macOS'un klasör seçme penceresiyle bir kez onay istenir; o klasör için bir daha sorulmaz.
 - **Kötü niyetli arşivler:** `..` ya da mutlak yol içeren, hedef klasörün dışına yazmaya çalışan öğeler çıkarılmaz. Simgesel bağların üzerinden yazılmaz. Sahiplik ve özel izin bitleri arşivden alınmaz.
 - **Şifreler:** Yalnızca işlem sırasında bellekte tutulur, diske kaydedilmez.
 - **Veri toplama yok:** Ayrıntılar [PRIVACY.md](PRIVACY.md), açık bildirimi [SECURITY.md](SECURITY.md).
 
-## Kaynaktan derleme
+## Destek
 
-Gerekenler: Xcode 16 ya da sonrası (komut satırı araçlarıyla).
-
-```bash
-git clone https://github.com/mugione/Unpaxo.git
-cd Unpaxo
-./Vendor/build-deps.sh   # libarchive, xz ve UnRAR'ı indirir, özetlerini doğrular ve derler (bir kez)
-swift test               # motor testleri
-./build.sh --open        # build/Unpaxo.app oluşturur ve açar
-```
-
-Proje düzeni:
-
-| Yol | İçerik |
-|---|---|
-| `Sources/UnpaxoCore` | Arşiv motoru: okuma, çıkarma, sıkıştırma, yerelleştirme |
-| `Sources/Unpaxo` | SwiftUI arayüzü |
-| `Sources/CArchiveLibs` | C kütüphanelerinin başlıkları ve UnRAR sarmalayıcısı |
-| `Vendor/build-deps.sh` | Üçüncü taraf kütüphaneleri kaynaktan derler |
-| `Support` | Info.plist, yetkiler, simge ve görsel üretme betikleri |
-| `Tests` | Uçtan uca testler ve örnek RAR dosyaları |
-
-Türkçe metinler kodun içindedir; İngilizce karşılıkları `Sources/UnpaxoCore/English.swift` sözlüğündedir.
+Soru, hata bildirimi ve öneriler için bu depoda bir [issue](../../issues) açabilirsin.
 
 ## Teşekkür
 
-Unpaxo şu açık kaynak kütüphaneleri kullanır: [libarchive](https://www.libarchive.org) (BSD),
+Unpaxo şu kütüphaneleri kullanır: [libarchive](https://www.libarchive.org) (BSD),
 [XZ Utils](https://tukaani.org/xz/) (0BSD) ve [UnRAR](https://www.rarlab.com) (UnRAR lisansı, yalnızca çıkarma).
+Lisans metinleri: [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md).
 
-## Lisans
-
-[MIT](LICENSE). Üçüncü taraf kütüphaneler kendi lisanslarına tabidir.
+© 2026 mugione. Tüm hakları saklıdır.
 
 ---
 
 ## English
 
-**Unpaxo** is a simple, open-source archive extractor and creator for macOS.
+**Unpaxo** is a simple archive extractor and creator for macOS.
 
 - **Look first, then extract.** See what is inside before anything is written to disk; extract everything or only the files you pick.
 - **Careful with your files.** Never overwrites; a taken name becomes "Name 2". Several items go into one tidy folder.
@@ -143,15 +118,16 @@ Unpaxo şu açık kaynak kütüphaneleri kullanır: [libarchive](https://www.lib
 - **Private.** Sandboxed, with no network entitlement: no accounts, ads, analytics or tracking. See [PRIVACY.md](PRIVACY.md).
 - **Free**, in English and Turkish, for Apple silicon and Intel Macs on macOS 14 or later.
 
-**Install:** a Mac App Store release is in preparation. Until then, build from source:
-
-```bash
-git clone https://github.com/mugione/Unpaxo.git
-cd Unpaxo
-./Vendor/build-deps.sh
-./build.sh --open
-```
+**Install:** a Mac App Store release is in preparation; the link will be added here.
 
 **Use:** drop an archive on the window (or double-click it in Finder), then choose Extract All or Extract Selected. Drop files or folders to compress them.
 
-Licensed under [MIT](LICENSE). Bundled libraries: libarchive (BSD), XZ Utils (0BSD), UnRAR (UnRAR licence, extraction only).
+<p align="center">
+  <img src="docs/screenshots/en/2-archive.png" width="820" alt="Archive contents in Unpaxo">
+</p>
+
+**Support:** open an [issue](../../issues) in this repository.
+
+Unpaxo uses libarchive (BSD), XZ Utils (0BSD) and UnRAR (UnRAR licence, extraction only); see [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md).
+
+© 2026 mugione. All rights reserved.
